@@ -9,8 +9,8 @@ on:
       test_notification:
         description: "Send a RainWatch test notification"
         required: true
-        default: false
         type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -20,21 +20,19 @@ permissions:
 jobs:
 
   check-rain:
-    if: ${{ github.event_name == 'schedule' || inputs.test_notification == false }}
+    if: ${{ github.event_name == 'schedule' || inputs.test_notification != true }}
     runs-on: ubuntu-latest
 
     steps:
-
-      - name: Check repository
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Check KMIA and update dashboard
+      - name: Check KMIA rainfall
         env:
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
-        run: |
-          python scripts/check_kmia.py
+        run: python scripts/check_kmia.py
 
-      - name: Commit updated dashboard data
+      - name: Commit updated data
         run: |
           git config user.name "RainWatch Bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -42,36 +40,26 @@ jobs:
           git diff --cached --quiet || git commit -m "Update KMIA observation"
           git push
 
-
   test-notification:
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.test_notification == true }}
     runs-on: ubuntu-latest
 
     steps:
-
-      - name: Send RainWatch test notification
+      - name: Send test notification
         env:
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
         run: |
-
           if [ -z "$NTFY_TOPIC" ]; then
             echo "NTFY_TOPIC is not configured."
             exit 1
           fi
 
-          curl \
-            --fail \
-            --retry 3 \
-            -H "Title: 🧪 RainWatch Test" \
+          curl --fail --retry 3 \
+            -H "Title: RainWatch Test" \
             -H "Priority: high" \
             -H "Tags: test,rainwatch" \
-            -d "RainWatch notification test successful.
-
-Your KMIA rainfall alert system is connected to ntfy and ready to send rainfall alerts.
-
-Topic: $NTFY_TOPIC" \
+            -d "RainWatch notification test successful. Your KMIA rainfall alert system is connected to ntfy and ready to send rainfall alerts." \
             "https://ntfy.sh/$NTFY_TOPIC"
-
 
   deploy:
     needs: check-rain
@@ -79,8 +67,7 @@ Topic: $NTFY_TOPIC" \
     runs-on: ubuntu-latest
 
     steps:
-
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup Pages
