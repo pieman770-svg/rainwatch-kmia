@@ -1,11 +1,11 @@
 {
   "station": "KMIA",
   "threshold_in_hr": 0.1,
-  "status": "no_data",
+  "status": "online",
   "error": null,
-  "rain_1hr_in": null,
+  "rain_1hr_in": 0.0,
   "observed_at": "2026-08-18T12:53:00",
-  "fetched_at": "2026-08-18T18:13:28.638806+00:00",
+  "fetched_at": "2026-08-18T18:17:50.013399+00:00",
   "source": "https://forecast.weather.gov/data/obhistory/KMIA.html",
   "alerted": false,
   "last_alert_observation": null
