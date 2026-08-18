@@ -2,10 +2,14 @@
   "station": "KMIA",
   "threshold_in_hr": 0.1,
   "rain_1hr_in": null,
-  "observed_at": "2026-08-18T17:25:00+00:00",
-  "fetched_at": "2026-08-18T17:47:31.352838+00:00",
+  "observed_at": "2026-08-18T17:40:00+00:00",
+  "fetched_at": "2026-08-18T18:03:34.887960+00:00",
   "source": "https://forecast.weather.gov/data/obhistory/KMIA.html",
   "api_source": "https://api.weather.gov/stations/KMIA/observations/latest",
   "alerted": false,
-  "last_alert_observation": null
+  "last_alert_observation": null,
+  "status": "no_data",
+  "error": null,
+  "observation_age_minutes": 23.584336633333333,
+  "stale_observation": false
 }
