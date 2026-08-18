@@ -161,12 +161,12 @@ def parse_precipitation(row):
     value = row[15].strip()
 
     if not value:
-        return None
+        return 0.0
 
     try:
         return float(value)
     except ValueError:
-        return None
+        return 0.0
 
 
 def parse_observation(row):
