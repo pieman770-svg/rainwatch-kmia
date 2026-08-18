@@ -1,52 +1,658 @@
 <!doctype html>
 <html lang="en">
+
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0b0f14">
+
+<meta name="theme-color" content="#0a0d10">
+
 <title>RainWatch — KMIA</title>
+
 <style>
-*{box-sizing:border-box}body{margin:0;background:#0b0f14;color:#eef2f6;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-main{max-width:620px;margin:auto;padding:24px}.head{margin:22px 0 28px}.eyebrow{font-size:12px;letter-spacing:.14em;color:#8995a3}.title{font-size:30px;font-weight:800;margin:5px 0}.sub{color:#8e9aa7}
-.card{background:#121922;border:1px solid #26313d;border-radius:22px;padding:24px;margin-bottom:16px}.label{color:#8e9aa7;text-transform:uppercase;letter-spacing:.1em;font-size:12px}
-.value{font-size:68px;font-weight:800;margin:14px 0 20px;line-height:1}.unit{font-size:20px;color:#9ba7b3;font-weight:500}
-.status{font-weight:750;font-size:16px}.good{color:#86efac}.alert{color:#fca5a5}
-.row{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid #222d38;gap:15px}.row:last-child{border:0}
-a{color:#9fc7ff}.small{font-size:12px;color:#75818d;line-height:1.5}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #0a0d10;
+  color: #f3f5f7;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+main {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 28px 20px 40px;
+}
+
+/* HEADER */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 10px 0 28px;
+}
+
+.eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  color: #78838f;
+  text-transform: uppercase;
+}
+
+.title {
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -.04em;
+  margin-top: 4px;
+}
+
+.location {
+  color: #87929e;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.live {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  color: #8f9aa5;
+  text-transform: uppercase;
+}
+
+.live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #6ee7a0;
+  box-shadow: 0 0 10px rgba(110,231,160,.5);
+}
+
+/* HERO */
+
+.hero {
+  background: linear-gradient(
+    145deg,
+    #151b22,
+    #10151b
+  );
+
+  border: 1px solid #27313b;
+  border-radius: 26px;
+  padding: 28px;
+  margin-bottom: 16px;
+}
+
+.hero-label {
+  color: #8a96a2;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.rain-value {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 12px 0 18px;
+}
+
+.number {
+  font-size: 76px;
+  line-height: .95;
+  font-weight: 800;
+  letter-spacing: -.06em;
+}
+
+.unit {
+  font-size: 17px;
+  color: #8e99a5;
+}
+
+/* STATUS */
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+
+  padding: 9px 13px;
+
+  border-radius: 999px;
+
+  background: rgba(110,231,160,.08);
+  border: 1px solid rgba(110,231,160,.18);
+
+  color: #82e7a3;
+
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: .04em;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* ALERT STATE */
+
+.status.alert {
+  background: rgba(248,113,113,.10);
+  border-color: rgba(248,113,113,.22);
+  color: #fca5a5;
+}
+
+/* INFORMATION */
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+
+  margin-bottom: 16px;
+}
+
+.card {
+  background: #11171d;
+  border: 1px solid #252e37;
+  border-radius: 20px;
+  padding: 21px;
+}
+
+.card-label {
+  color: #77838e;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.card-value {
+  margin-top: 8px;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.card-sub {
+  margin-top: 4px;
+  color: #7d8994;
+  font-size: 12px;
+}
+
+/* DETAILS */
+
+.details {
+  background: #11171d;
+  border: 1px solid #252e37;
+  border-radius: 20px;
+  padding: 6px 21px;
+  margin-bottom: 16px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+
+  padding: 15px 0;
+
+  border-bottom: 1px solid #202830;
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.row-label {
+  color: #7e8994;
+  font-size: 13px;
+}
+
+.row-value {
+  color: #dce1e6;
+  font-size: 13px;
+  font-weight: 650;
+  text-align: right;
+}
+
+/* FOOTER */
+
+.footer {
+  color: #68737e;
+  font-size: 11px;
+  line-height: 1.6;
+  padding: 4px 3px;
+}
+
+.footer a {
+  color: #91b8e8;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* MOBILE */
+
+@media (max-width: 520px) {
+
+  main {
+    padding: 22px 16px 32px;
+  }
+
+  .title {
+    font-size: 30px;
+  }
+
+  .number {
+    font-size: 64px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    padding: 24px;
+  }
+
+  .header {
+    margin-bottom: 22px;
+  }
+
+}
+
 </style>
 </head>
+
+
 <body>
+
 <main>
-<div class="head"><div class="eyebrow">RAIN MONITOR</div><div class="title">KMIA</div><div class="sub">Miami International Airport</div></div>
-<section class="card">
-<div class="label">1-hour precipitation</div>
-<div class="value"><span id="rain">—</span><span class="unit"> in/hr</span></div>
-<div id="status" class="status">Loading…</div>
-</section>
-<section class="card">
-<div class="row"><span>Alert threshold</span><strong>0.10 in/hr</strong></div>
-<div class="row"><span>Observation</span><strong id="obs">—</strong></div>
-<div class="row"><span>Last check</span><strong id="check">—</strong></div>
-</section>
-<section class="card small">
-This monitor checks only KMIA and alerts when the NWS 1-hour precipitation value is at or above 0.10 inches.
-<br><br><a href="https://forecast.weather.gov/data/obhistory/KMIA.html">Open NOAA observation history</a>
-</section>
+
+  <!-- HEADER -->
+
+  <header class="header">
+
+    <div>
+      <div class="eyebrow">Rain Monitor</div>
+      <div class="title">KMIA</div>
+      <div class="location">
+        Miami International Airport
+      </div>
+    </div>
+
+    <div class="live">
+      <span class="live-dot"></span>
+      Live
+    </div>
+
+  </header>
+
+
+  <!-- CURRENT RAIN -->
+
+  <section class="hero">
+
+    <div class="hero-label">
+      1-hour precipitation
+    </div>
+
+    <div class="rain-value">
+
+      <span
+        id="rain"
+        class="number">
+        —
+      </span>
+
+      <span class="unit">
+        in/hr
+      </span>
+
+    </div>
+
+    <div
+      id="status"
+      class="status">
+
+      <span class="status-dot"></span>
+
+      <span id="statusText">
+        Loading observation…
+      </span>
+
+    </div>
+
+  </section>
+
+
+  <!-- KEY METRICS -->
+
+  <section class="grid">
+
+    <div class="card">
+
+      <div class="card-label">
+        Alert threshold
+      </div>
+
+      <div
+        id="threshold"
+        class="card-value">
+        0.10 in/hr
+      </div>
+
+      <div class="card-sub">
+        Notification trigger
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="card-label">
+        Monitor status
+      </div>
+
+      <div
+        id="monitor"
+        class="card-value">
+        Checking…
+      </div>
+
+      <div
+        id="monitorSub"
+        class="card-sub">
+        Waiting for data
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- DETAILS -->
+
+  <section class="details">
+
+    <div class="row">
+
+      <span class="row-label">
+        Observation
+      </span>
+
+      <strong
+        id="obs"
+        class="row-value">
+        —
+      </strong>
+
+    </div>
+
+
+    <div class="row">
+
+      <span class="row-label">
+        Last system check
+      </span>
+
+      <strong
+        id="check"
+        class="row-value">
+        —
+      </strong>
+
+    </div>
+
+
+    <div class="row">
+
+      <span class="row-label">
+        Data source
+      </span>
+
+      <strong class="row-value">
+        NWS / KMIA
+      </strong>
+
+    </div>
+
+  </section>
+
+
+  <!-- FOOTER -->
+
+  <section class="footer">
+
+    RainWatch monitors the National Weather Service
+    KMIA observation-history table and evaluates the
+    <strong>1-hour precipitation</strong> measurement.
+
+    <br><br>
+
+    <a
+      href="https://forecast.weather.gov/data/obhistory/KMIA.html"
+      target="_blank"
+      rel="noopener">
+      Open NWS observation history →
+    </a>
+
+  </section>
+
+
 </main>
+
+
 <script>
-async function load(){
-  try{
-    const d=await fetch("data.json?"+Date.now()).then(r=>r.json());
-    document.querySelector("#rain").textContent=d.rain_1hr_in==null?"—":Number(d.rain_1hr_in).toFixed(2);
-    document.querySelector("#obs").textContent=d.observed_at?new Date(d.observed_at).toLocaleString():"—";
-    document.querySelector("#check").textContent=d.fetched_at?new Date(d.fetched_at).toLocaleString():"—";
-    const s=document.querySelector("#status");
-    if(d.rain_1hr_in!=null && d.rain_1hr_in>=d.threshold_in_hr){
-      s.textContent="🌧️ THRESHOLD REACHED";s.className="status alert";
-    }else{s.textContent="✓ Below threshold";s.className="status good";}
-  }catch(e){document.querySelector("#status").textContent="Unable to load latest observation";}
+
+async function loadData() {
+
+  try {
+
+    const response =
+      await fetch("data.json?" + Date.now());
+
+    if (!response.ok) {
+      throw new Error("Unable to load data");
+    }
+
+    const d = await response.json();
+
+
+    /* RAIN */
+
+    const rainElement =
+      document.querySelector("#rain");
+
+    const status =
+      document.querySelector("#status");
+
+    const statusText =
+      document.querySelector("#statusText");
+
+
+    if (d.rain_1hr_in == null) {
+
+      rainElement.textContent = "—";
+
+      status.className = "status";
+
+      statusText.textContent =
+        "No precipitation data";
+
+    } else {
+
+      const rain =
+        Number(d.rain_1hr_in);
+
+      rainElement.textContent =
+        rain.toFixed(2);
+
+
+      if (
+        rain >= Number(d.threshold_in_hr)
+      ) {
+
+        status.className =
+          "status alert";
+
+        statusText.textContent =
+          "RAIN THRESHOLD REACHED";
+
+      } else {
+
+        status.className =
+          "status";
+
+        statusText.textContent =
+          "NO RAIN ALERT";
+
+      }
+
+    }
+
+
+    /* THRESHOLD */
+
+    if (d.threshold_in_hr != null) {
+
+      document.querySelector(
+        "#threshold"
+      ).textContent =
+        Number(d.threshold_in_hr)
+          .toFixed(2) + " in/hr";
+
+    }
+
+
+    /* MONITOR STATUS */
+
+    const monitor =
+      document.querySelector("#monitor");
+
+    const monitorSub =
+      document.querySelector("#monitorSub");
+
+
+    if (d.status === "online") {
+
+      monitor.textContent =
+        "Online";
+
+      monitorSub.textContent =
+        "NWS data received";
+
+    } else if (d.status === "no_data") {
+
+      monitor.textContent =
+        "Online";
+
+      monitorSub.textContent =
+        "No 1-hour value reported";
+
+    } else if (d.status === "error") {
+
+      monitor.textContent =
+        "Error";
+
+      monitorSub.textContent =
+        "Unable to retrieve NWS data";
+
+    } else {
+
+      monitor.textContent =
+        "Unknown";
+
+      monitorSub.textContent =
+        "Check monitor status";
+
+    }
+
+
+    /* TIMES */
+
+    document.querySelector(
+      "#obs"
+    ).textContent =
+      d.observed_at
+        ? new Date(
+            d.observed_at
+          ).toLocaleString()
+        : "—";
+
+
+    document.querySelector(
+      "#check"
+    ).textContent =
+      d.fetched_at
+        ? new Date(
+            d.fetched_at
+          ).toLocaleString()
+        : "—";
+
+  }
+
+  catch (error) {
+
+    document.querySelector(
+      "#status"
+    ).className =
+      "status alert";
+
+    document.querySelector(
+      "#statusText"
+    ).textContent =
+      "Unable to load monitor";
+
+    document.querySelector(
+      "#monitor"
+    ).textContent =
+      "Offline";
+
+    document.querySelector(
+      "#monitorSub"
+    ).textContent =
+      "Dashboard could not load data";
+
+  }
+
 }
-load();setInterval(load,60000);
+
+
+/* Initial load */
+
+loadData();
+
+
+/* Refresh every minute */
+
+setInterval(
+  loadData,
+  60000
+);
+
 </script>
+
 </body>
 </html>
