@@ -1,0 +1,11 @@
+{
+  "station": "KMIA",
+  "threshold_in_hr": 0.1,
+  "rain_1hr_in": null,
+  "observed_at": null,
+  "fetched_at": null,
+  "source": "https://forecast.weather.gov/data/obhistory/KMIA.html",
+  "api_source": "https://api.weather.gov/stations/KMIA/observations/latest",
+  "alerted": false,
+  "last_alert_observation": null
+}
