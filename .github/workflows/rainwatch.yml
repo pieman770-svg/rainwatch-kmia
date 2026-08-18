@@ -1,1 +1,50 @@
+name: RainWatch KMIA
 
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  check-rain:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check repository
+        uses: actions/checkout@v4
+
+      - name: Check KMIA and update dashboard
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: |
+          python scripts/check_kmia.py
+
+      - name: Commit updated dashboard data
+        run: |
+          git config user.name "RainWatch Bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/data.json
+          git diff --cached --quiet || git commit -m "Update KMIA observation"
+          git push
+
+  deploy:
+    needs: check-rain
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./docs
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
