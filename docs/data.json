@@ -3,7 +3,7 @@
   "threshold_in_hr": 0.1,
   "rain_1hr_in": null,
   "observed_at": "2026-08-18T17:25:00+00:00",
-  "fetched_at": "2026-08-18T17:44:33.085775+00:00",
+  "fetched_at": "2026-08-18T17:47:31.352838+00:00",
   "source": "https://forecast.weather.gov/data/obhistory/KMIA.html",
   "api_source": "https://api.weather.gov/stations/KMIA/observations/latest",
   "alerted": false,
