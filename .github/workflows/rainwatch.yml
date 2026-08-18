@@ -3,7 +3,14 @@ name: RainWatch KMIA
 on:
   schedule:
     - cron: "*/15 * * * *"
+
   workflow_dispatch:
+    inputs:
+      test_notification:
+        description: "Send a RainWatch test notification"
+        required: true
+        default: false
+        type: boolean
 
 permissions:
   contents: write
@@ -11,9 +18,13 @@ permissions:
   id-token: write
 
 jobs:
+
   check-rain:
+    if: ${{ github.event_name == 'schedule' || inputs.test_notification == false }}
     runs-on: ubuntu-latest
+
     steps:
+
       - name: Check repository
         uses: actions/checkout@v4
 
@@ -31,10 +42,44 @@ jobs:
           git diff --cached --quiet || git commit -m "Update KMIA observation"
           git push
 
+
+  test-notification:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.test_notification == true }}
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Send RainWatch test notification
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: |
+
+          if [ -z "$NTFY_TOPIC" ]; then
+            echo "NTFY_TOPIC is not configured."
+            exit 1
+          fi
+
+          curl \
+            --fail \
+            --retry 3 \
+            -H "Title: 🧪 RainWatch Test" \
+            -H "Priority: high" \
+            -H "Tags: test,rainwatch" \
+            -d "RainWatch notification test successful.
+
+Your KMIA rainfall alert system is connected to ntfy and ready to send rainfall alerts.
+
+Topic: $NTFY_TOPIC" \
+            "https://ntfy.sh/$NTFY_TOPIC"
+
+
   deploy:
     needs: check-rain
+    if: ${{ needs.check-rain.result == 'success' }}
     runs-on: ubuntu-latest
+
     steps:
+
       - name: Checkout
         uses: actions/checkout@v4
 
