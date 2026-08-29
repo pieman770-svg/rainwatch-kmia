@@ -3,9 +3,9 @@
   "threshold_in_hr": 0.1,
   "status": "online",
   "error": null,
-  "rain_1hr_in": 0.0,
-  "observed_at": "2026-08-29T11:53:00",
-  "fetched_at": "2026-08-29T17:12:59.851836+00:00",
+  "rain_1hr_in": 0.03,
+  "observed_at": "2026-08-29T12:53:00",
+  "fetched_at": "2026-08-29T17:27:32.328415+00:00",
   "source": "https://forecast.weather.gov/data/obhistory/KMIA.html",
   "alerted": false,
   "last_alert_observation": null
