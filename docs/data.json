@@ -5,7 +5,7 @@
   "error": null,
   "rain_1hr_in": 0.0,
   "observed_at": "2026-09-04T23:53:00",
-  "fetched_at": "2026-09-05T04:47:37.140009+00:00",
+  "fetched_at": "2026-09-05T05:00:13.270339+00:00",
   "source": "https://forecast.weather.gov/data/obhistory/KMIA.html",
   "alerted": false,
   "last_alert_observation": null
