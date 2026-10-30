@@ -4,8 +4,8 @@
   "status": "online",
   "error": null,
   "rain_1hr_in": 0.0,
-  "observed_at": "2026-10-30T14:53:00",
-  "fetched_at": "2026-10-30T19:38:35.310331+00:00",
+  "observed_at": "2026-10-30T18:53:00",
+  "fetched_at": "2026-10-30T23:17:14.509105+00:00",
   "source": "https://forecast.weather.gov/data/obhistory/KMIA.html",
   "alerted": false,
   "last_alert_observation": null
